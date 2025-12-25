@@ -34,7 +34,7 @@
     </header>
 
     <main>
-        <section class="hero" id="home" style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80'); background-size: cover; background-position: center;">
+        <section class="hero" id="home">
             <div class="container">
                 <h1>DS LOCAÇÕES</h1>
                 <p>Aluguel de motos para aplicativos com gestão completa e suporte 24h</p>
@@ -85,49 +85,7 @@
             <div class="container">
                 <h2 class="section-title">Nossos Planos</h2>
                 <div class="plans-grid">
-                    <div class="plan-card">
-                        <div class="plan-header">
-                            <h3>Plano Básico</h3>
-                            <div class="plan-price">R$ 1.299<span>/mês</span></div>
-                        </div>
-                        <ul class="plan-features">
-                            <li><i class="fas fa-check"></i> Honda CG 160</li>
-                            <li><i class="fas fa-check"></i> Seguro básico</li>
-                            <li><i class="fas fa-check"></i> Manutenção preventiva</li>
-                            <li><i class="fas fa-times"></i> Suporte 24h</li>
-                            <li><i class="fas fa-times"></i> Documentação digital</li>
-                        </ul>
-                        <a href="#contato" class="btn">Contratar</a>
-                    </div>
-                    <div class="plan-card featured">
-                        <div class="plan-badge">Mais Popular</div>
-                        <div class="plan-header">
-                            <h3>Plano Completo</h3>
-                            <div class="plan-price">R$ 1.599<span>/mês</span></div>
-                        </div>
-                        <ul class="plan-features">
-                            <li><i class="fas fa-check"></i> Honda CG 160 ou Yamaha Factor 150</li>
-                            <li><i class="fas fa-check"></i> Seguro completo</li>
-                            <li><i class="fas fa-check"></i> Manutenção completa</li>
-                            <li><i class="fas fa-check"></i> Suporte 24h</li>
-                            <li><i class="fas fa-check"></i> Documentação digital</li>
-                        </ul>
-                        <a href="#contato" class="btn">Contratar</a>
-                    </div>
-                    <div class="plan-card">
-                        <div class="plan-header">
-                            <h3>Plano Premium</h3>
-                            <div class="plan-price">R$ 1.899<span>/mês</span></div>
-                        </div>
-                        <ul class="plan-features">
-                            <li><i class="fas fa-check"></i> Honda Biz 125 ou similar</li>
-                            <li><i class="fas fa-check"></i> Seguro premium</li>
-                            <li><i class="fas fa-check"></i> Manutenção completa</li>
-                            <li><i class="fas fa-check"></i> Suporte 24h prioritário</li>
-                            <li><i class="fas fa-check"></i> Documentação digital + baú</li>
-                        </ul>
-                        <a href="#contato" class="btn">Contratar</a>
-                    </div>
+                    <!-- Planos serão carregados automaticamente da planilha -->
                 </div>
             </div>
         </section>
@@ -164,7 +122,21 @@
                         </div>
                     </div>
                     <div class="about-image">
-                        <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?ixlib=rb-4.0.3&auto=format&fit=crop&w=700&q=80" alt="Frota de motos DS Locações">
+                        <!-- CARROSSEL AUTOMÁTICO -->
+                        <div class="carousel-container" id="aboutCarousel">
+                            <div class="carousel-slides">
+                                <!-- Imagens serão adicionadas via JavaScript -->
+                            </div>
+                            <div class="carousel-indicators">
+                                <!-- Indicadores serão adicionados via JavaScript -->
+                            </div>
+                            <button class="carousel-control prev-control">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <button class="carousel-control next-control">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -230,9 +202,7 @@
                                 <label for="plano">Plano de Interesse</label>
                                 <select id="plano" name="plano">
                                     <option value="">Selecione um plano</option>
-                                    <option value="basico">Plano Básico - R$ 1.299/mês</option>
-                                    <option value="completo">Plano Completo - R$ 1.599/mês</option>
-                                    <option value="premium">Plano Premium - R$ 1.899/mês</option>
+                                    <!-- Opções serão preenchidas via JavaScript -->
                                 </select>
                             </div>
                             <div class="form-group">
@@ -296,21 +266,30 @@
         </div>
     </footer>
 
+    <!-- Modal da Galeria com novo layout -->
     <div class="gallery-modal" id="galleryModal">
         <div class="modal-content">
-            <span class="close-modal" id="closeModal">&times;</span>
             <div class="modal-header">
-                <h3 id="modalMotoName"></h3>
-                <div class="modal-nav">
+                <div class="modal-nav-row">
                     <button class="nav-btn prev-btn" id="prevBtn">
                         <i class="fas fa-chevron-left"></i>
                     </button>
-                    <span class="image-counter" id="imageCounter"></span>
+                    
+                    <div class="nav-center">
+                        <span class="image-counter" id="imageCounter">--1/1--</span>
+                    </div>
+                    
                     <button class="nav-btn next-btn" id="nextBtn">
                         <i class="fas fa-chevron-right"></i>
                     </button>
                 </div>
+                
+                <div class="modal-title-row">
+                    <h3 id="modalMotoName"></h3>
+                    <span class="close-modal" id="closeModal">×</span>
+                </div>
             </div>
+            
             <div class="modal-body">
                 <div class="main-image-container">
                     <img id="mainImage" src="" alt="">
