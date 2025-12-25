@@ -1,16 +1,19 @@
-// js/data.js
+// js/data.js - Sistema de cache completo para DS Locações
+
+// Cache para os dados
 let siteDataCache = null;
 let lastFetchTime = null;
 const CACHE_DURATION = 5 * 60 * 1000; // 5 minutos
 
 async function loadSiteData() {
+    // Verificar cache
     if (siteDataCache && lastFetchTime && (Date.now() - lastFetchTime) < CACHE_DURATION) {
         console.log('📁 Usando dados em cache');
         return siteDataCache;
     }
 
     try {
-        console.log('🔄 Buscando dados da planilha...');
+        console.log('🔄 Buscando dados do Google Sheets...');
         
         const response = await fetch('/.netlify/functions/get-data');
         
@@ -24,9 +27,10 @@ async function loadSiteData() {
             siteDataCache = data;
             lastFetchTime = Date.now();
             
-            console.log(`✅ ${data.motos.length} motos, ${data.planos.length} planos carregados`);
+            console.log(`✅ ${data.motos?.length || 0} motos, ${data.planos?.length || 0} planos carregados`);
             return data;
         } else {
+            console.log('📭 Nenhum dado encontrado');
             return {
                 config: {},
                 motos: [],
@@ -64,9 +68,3 @@ window.loadMotosData = loadMotosData;
 window.loadPlanosData = loadPlanosData;
 window.loadConfig = loadConfig;
 window.loadSiteData = loadSiteData;
-
-// Função auxiliar para formatar moeda
-function formatCurrency(price) {
-    if (!price) return 'Consulte';
-    return price.toString().replace(/R\$?\s?/i, 'R$ ');
-}

@@ -1,15 +1,28 @@
 {
   "name": "ds-locacoes",
   "version": "1.0.0",
-  "description": "Site da DS Locações - Aluguel de motos para aplicativos",
+  "description": "DS Locações - Aluguel de motos para aplicativos",
   "main": "index.html",
   "scripts": {
-    "build": "echo 'No build step required'",
-    "test": "echo 'No tests specified'"
+    "build": "echo 'Build completo'",
+    "dev": "echo 'Modo desenvolvimento'",
+    "netlify:build": "echo 'Build para Netlify'"
   },
+  "keywords": [
+    "motos",
+    "aluguel",
+    "aplicativos",
+    "entregas",
+    "ifood",
+    "uber",
+    "99"
+  ],
+  "author": "Gleydson de Almeida Duarte",
+  "license": "MIT",
   "dependencies": {
     "node-fetch": "^2.6.7"
   },
+  "devDependencies": {},
   "engines": {
     "node": ">=18"
   }

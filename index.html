@@ -84,8 +84,11 @@
         <section class="plans" id="planos">
             <div class="container">
                 <h2 class="section-title">Nossos Planos</h2>
-                <div class="plans-grid">
-                    <!-- Planos serão carregados automaticamente da planilha -->
+                <div class="plans-grid" id="plansGrid">
+                    <!-- Planos carregados da planilha -->
+                    <div class="loading-message">
+                        <i class="fas fa-spinner fa-spin"></i> Carregando planos...
+                    </div>
                 </div>
             </div>
         </section>
@@ -96,7 +99,7 @@
                 <p class="section-subtitle">Frota atualizada automaticamente</p>
                 
                 <div class="motos-grid" id="motosGrid">
-                    <!-- Os dados serão carregados automaticamente da planilha -->
+                    <!-- Motos carregadas da planilha -->
                 </div>
             </div>
         </section>
@@ -122,13 +125,12 @@
                         </div>
                     </div>
                     <div class="about-image">
-                        <!-- CARROSSEL AUTOMÁTICO -->
                         <div class="carousel-container" id="aboutCarousel">
                             <div class="carousel-slides">
-                                <!-- Imagens serão adicionadas via JavaScript -->
+                                <!-- Imagens do carrossel serão carregadas aqui -->
                             </div>
                             <div class="carousel-indicators">
-                                <!-- Indicadores serão adicionados via JavaScript -->
+                                <!-- Indicadores do carrossel -->
                             </div>
                             <button class="carousel-control prev-control">
                                 <i class="fas fa-chevron-left"></i>
