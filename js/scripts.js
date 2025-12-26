@@ -628,14 +628,158 @@ function setupForm() {
                 return;
             }
             
+            // VALIDAÇÃO DO CPF
+            const cpfInput = document.getElementById('cpf');
+            if (cpfInput) {
+                const cpfValue = cpfInput.value.replace(/\D/g, '');
+                if (!validarCPF(cpfValue)) {
+                    e.preventDefault();
+                    alert('Por favor, digite um CPF válido.');
+                    cpfInput.focus();
+                    cpfInput.classList.add('error');
+                    return false;
+                }
+            }
+            
             console.log('Formulário sendo enviado para Netlify...');
         });
     }
+    
+    // Configurar campo CPF
+    setupCPFField();
 }
 
 function updateFooterInfo() {
     document.getElementById("year").textContent = new Date().getFullYear();
 }
+
+// ========== FUNÇÕES DE CPF ==========
+
+// FUNÇÃO PARA VALIDAR CPF
+function validarCPF(cpf) {
+    cpf = cpf.replace(/[^\d]/g, ''); // Remove pontos e traço
+    
+    // Verifica se tem 11 dígitos
+    if (cpf.length !== 11) return false;
+    
+    // Verifica se todos os dígitos são iguais (CPF inválido)
+    if (/^(\d)\1+$/.test(cpf)) return false;
+    
+    // Validação dos dígitos verificadores
+    let soma = 0;
+    let resto;
+    
+    // Primeiro dígito verificador
+    for (let i = 1; i <= 9; i++) {
+        soma += parseInt(cpf.substring(i-1, i)) * (11 - i);
+    }
+    resto = (soma * 10) % 11;
+    if (resto === 10 || resto === 11) resto = 0;
+    if (resto !== parseInt(cpf.substring(9, 10))) return false;
+    
+    // Segundo dígito verificador
+    soma = 0;
+    for (let i = 1; i <= 10; i++) {
+        soma += parseInt(cpf.substring(i-1, i)) * (12 - i);
+    }
+    resto = (soma * 10) % 11;
+    if (resto === 10 || resto === 11) resto = 0;
+    if (resto !== parseInt(cpf.substring(10, 11))) return false;
+    
+    return true; // CPF válido
+}
+
+// FUNÇÃO PARA FORMATAR CPF
+function formatarCPF(cpf) {
+    cpf = cpf.replace(/\D/g, ''); // Remove não números
+    cpf = cpf.replace(/(\d{3})(\d)/, '$1.$2');
+    cpf = cpf.replace(/(\d{3})(\d)/, '$1.$2');
+    cpf = cpf.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+    return cpf;
+}
+
+// ADICIONAR MÁSCARA E VALIDAÇÃO AO CAMPO CPF
+function setupCPFField() {
+    const cpfInput = document.getElementById('cpf');
+    
+    if (!cpfInput) return;
+    
+    // Máscara de formatação em tempo real
+    cpfInput.addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\D/g, '');
+        
+        if (value.length > 11) {
+            value = value.substring(0, 11);
+        }
+        
+        // Formatação automática
+        if (value.length > 9) {
+            value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+        } else if (value.length > 6) {
+            value = value.replace(/(\d{3})(\d{3})(\d{1,3})/, '$1.$2.$3');
+        } else if (value.length > 3) {
+            value = value.replace(/(\d{3})(\d{1,3})/, '$1.$2');
+        }
+        
+        e.target.value = value;
+        
+        // Validação visual
+        validarCPFVisual(e.target);
+    });
+    
+    // Validação ao perder o foco
+    cpfInput.addEventListener('blur', function(e) {
+        validarCPFVisual(e.target);
+    });
+    
+    // Validação ao enviar formulário
+    const form = document.querySelector('form[name="contato"]');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            const cpfValue = cpfInput.value.replace(/\D/g, '');
+            
+            if (!validarCPF(cpfValue)) {
+                e.preventDefault();
+                alert('Por favor, digite um CPF válido.');
+                cpfInput.focus();
+                cpfInput.classList.add('error');
+                return false;
+            }
+            
+            // Formata o CPF antes de enviar
+            cpfInput.value = formatarCPF(cpfValue);
+        });
+    }
+}
+
+// VALIDAÇÃO VISUAL (feedback para o usuário)
+function validarCPFVisual(input) {
+    const value = input.value.replace(/\D/g, '');
+    const isValid = validarCPF(value);
+    const feedback = document.getElementById('cpfFeedback');
+    
+    input.classList.remove('error', 'success');
+    
+    if (!feedback) return;
+    
+    if (value.length === 0) {
+        feedback.textContent = '';
+        feedback.className = 'cpf-validation';
+        return;
+    }
+    
+    if (isValid) {
+        input.classList.add('success');
+        feedback.textContent = '✓ CPF válido';
+        feedback.className = 'cpf-validation success';
+    } else {
+        input.classList.add('error');
+        feedback.textContent = '✗ CPF inválido';
+        feedback.className = 'cpf-validation error';
+    }
+}
+
+// ========== FUNÇÃO INIT PRINCIPAL ==========
 
 // Função principal de inicialização
 async function init() {

@@ -1324,3 +1324,45 @@ footer {
         font-size: 1rem;
     }
 }
+
+/* ESTILOS PARA VALIDAÇÃO DE CPF */
+.form-group input.success {
+    border-color: #10b981 !important;
+    background-color: rgba(16, 185, 129, 0.05);
+}
+
+.form-group input.error {
+    border-color: #ef4444 !important;
+    background-color: rgba(239, 68, 68, 0.05);
+}
+
+.form-group input.success:focus {
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+}
+
+.form-group input.error:focus {
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+}
+
+/* Mensagem de validação */
+.cpf-validation {
+    font-size: 0.85rem;
+    margin-top: 5px;
+    display: none;
+}
+
+.cpf-validation.error {
+    color: #dc2626;
+    display: block;
+}
+
+.cpf-validation.success {
+    color: #059669;
+    display: block;
+}
+
+/* Estilo para campo obrigatório */
+.form-group label[for="cpf"]::after {
+    content: " *";
+    color: #ef4444;
+}
